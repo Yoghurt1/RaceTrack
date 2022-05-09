@@ -1,8 +1,11 @@
 import { Connection } from 'autobahn'
+import express from 'express'
 import { RelayResponse } from './interfaces/relayResponse'
 import { RelayEntries } from './interfaces/relayEntries'
 import axios, { AxiosResponse } from 'axios'
 import { DirectoryMessage } from './interfaces/directoryMessage'
+import { attachRoutes } from './routes'
+import { configureNunjucks } from './nunjucks'
 
 async function getRelay(): Promise<string> {
   const res: AxiosResponse = await axios.get('https://www.timing71.org/relays')
@@ -44,3 +47,9 @@ getRelay().then(async (res) => {
   connection.open()
 })
 
+const app = express()
+
+configureNunjucks(app)
+attachRoutes(app)
+
+module.exports = app
