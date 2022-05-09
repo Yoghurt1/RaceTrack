@@ -1,0 +1,41 @@
+services:
+  www.local:
+    image: nginx:alpine
+    networks:
+      - default
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/frontend.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+  api.local:
+    image: nginx:alpine
+    networks:
+      - default
+    ports:
+      - "8081:80"
+    volumes:
+      - ./nginx/api.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9229:9229"
+    volumes:
+      - ./frontend:/frontend
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    networks:
+      - default
+    ports:
+      - "9230:9230"
+    volumes:
+      - ./api:/api
