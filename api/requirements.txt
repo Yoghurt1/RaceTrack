@@ -1,5 +1,1 @@
 flask == 2.1.2
-autobahn[asyncio,serialization] == 22.4.2
-lzstring == 1.0.3
-cbor
-requests
