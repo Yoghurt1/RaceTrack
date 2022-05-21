@@ -23,19 +23,27 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    environment:
+      - DATA_DIR=/data
     networks:
       - default
     ports:
       - "9229:9229"
     volumes:
       - ./frontend:/frontend
+      - timingdata:/data
   api:
     build:
       context: ./api
       dockerfile: Dockerfile
+    environment:
+      - DATA_DIR=/data
     networks:
       - default
     ports:
       - "9230:9230"
     volumes:
       - ./api:/api
+      - timingdata:/data
+volumes:
+  timingdata:
