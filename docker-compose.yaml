@@ -25,6 +25,8 @@ services:
       dockerfile: Dockerfile
     environment:
       - DATA_DIR=/data
+      - API_HOST=http://api
+      - API_PORT=3001
     networks:
       - default
     ports:

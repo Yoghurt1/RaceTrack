@@ -1,8 +1,13 @@
 {
   "env": {
     "browser": true,
-    "es2021": true
+    "es2021": true,
+    "node": true
   },
+  "ignorePatterns": [
+    "node_modules",
+    "dist"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended"
@@ -42,6 +47,13 @@
         "no-undef": "off",
         "@typescript-eslint/no-var-requires": "off"
       }
-    }
+    },
+    {
+      "files": ["src/services/apiClient.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off"
+      }
+    },
+    {}
   ]
 }

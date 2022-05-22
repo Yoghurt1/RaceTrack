@@ -5,6 +5,8 @@ import { HomeController } from './controllers/homeController'
 import { TimingService } from './services/timingService'
 import { Connection, Session } from 'autobahn'
 import { SessionProvider, sessionProvider } from './provider'
+import { ApiClient } from './services/apiClient'
+import { API_HOST, API_PORT } from './config'
 
 const iocContainer = new Container()
 
@@ -17,6 +19,7 @@ iocContainer.bind<SessionProvider>(TYPES.SessionProvider).toProvider<Session>(se
 
 // Services
 iocContainer.bind<TimingService>(TYPES.TimingService).to(TimingService).inSingletonScope()
+iocContainer.bind<ApiClient>(TYPES.ApiClient).toConstantValue(new ApiClient({ baseUrl: `${API_HOST}:${API_PORT}`}))
 
 // Controllers
 iocContainer.bind<HomeController>(TYPES.HomeController).to(HomeController)

@@ -5,6 +5,7 @@ export const TYPES = {
 
   // Services
   TimingService: Symbol.for('TimingService'),
+  ApiClient: Symbol.for('ApiClient'),
 
   // Controllers
   HomeController: Symbol.for('HomeController')
