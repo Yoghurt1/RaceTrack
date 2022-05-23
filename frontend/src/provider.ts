@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { Connection, Session } from 'autobahn'
 import { interfaces } from 'inversify'
 import { TYPES } from './types'

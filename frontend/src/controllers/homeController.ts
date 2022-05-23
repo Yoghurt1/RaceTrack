@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { Request, Response, Router } from 'express'
 import { Controller } from './controller'
 import { inject, injectable } from 'inversify'
