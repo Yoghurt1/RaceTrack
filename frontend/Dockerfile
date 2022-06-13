@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 3000
 EXPOSE 9229
 
-CMD ["sh", "-c", "npm run build && npm start"]
+CMD ["sh", "-c", "npm run build && npm run start-dev"]

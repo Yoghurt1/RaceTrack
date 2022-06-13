@@ -49,9 +49,16 @@
       }
     },
     {
-      "files": ["src/services/apiClient.ts"],
+      "files": ["src/services/apiClient.ts", "tests/fixtures/twitterFixtures.ts"],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
+      }
+    },
+    {
+      "files": ["*.js"],
+      "rules": {
+        "semi": "off",
+        "@typescript-eslint/no-var-requires": "off"
       }
     }
   ]

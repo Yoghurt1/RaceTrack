@@ -1,4 +1,35 @@
-<html>
-  <p>{{ events }}</p>
-  <p>{{ test }}</p>
-</html>
+{% extends "includes/layout.html" %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-sm" id="events">
+      <h2>Current events</h2>
+      {% if events.length === 0 %}
+        <p>No events currently ongoing.</p>
+      {% else %}
+        {% for event in events %}
+          <div class="card border-">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">{{ event.name }}</li>
+              <li class="list-group-item">{{ event.description }}</li>
+            </ul>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="col-sm" id="tweets">
+      <h2>What's happening</h2>
+      {% for tweet in tweets %}
+        <div class="card bg-dark border-secondary">
+          <div class="card-body">
+            <h5 class="card-title"><a href="https://twitter.com/{{ tweet.author.username }}">@{{ tweet.author.username }}</a></h5>
+            <p class="card-text">{{ tweet.tweet.text }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}

@@ -27,6 +27,7 @@ services:
       - DATA_DIR=/data
       - API_HOST=http://api
       - API_PORT=3001
+      - TWITTER_API_TOKEN=${TWITTER_API_BEARER_TOKEN}
     networks:
       - default
     ports:

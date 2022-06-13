@@ -1,0 +1,19 @@
+$primary:    rgb(20, 108, 67);
+$secondary:  rgb(26, 161, 121);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.navbar {
+  margin-bottom: 10px;
+}
+
+.card {
+  @extend .card;
+  margin-bottom: 5px;
+}
+
+.navbar-brand {
+  @extend .navbar-brand;
+  font-size: xx-large;
+  font-style: italic;
+}
