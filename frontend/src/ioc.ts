@@ -9,6 +9,8 @@ import { ApiClient } from './services/apiClient'
 import { API_HOST, API_PORT, TWITTER_API_TOKEN } from './config'
 import { TwitterApi, TwitterApiReadOnly } from 'twitter-api-v2'
 import { TwitterService } from './services/twitterService'
+import { FileService } from './services/fileService'
+import { AnalyseRequestMapper } from './mappers/analyseRequestMapper'
 
 const iocContainer = new Container()
 
@@ -25,8 +27,12 @@ iocContainer.bind<TwitterApiReadOnly>(TYPES.TwitterClient).toConstantValue(new T
 
 // Services
 iocContainer.bind<TimingService>(TYPES.TimingService).to(TimingService).inSingletonScope()
-iocContainer.bind<ApiClient>(TYPES.ApiClient).toConstantValue(new ApiClient({ baseUrl: `${API_HOST}:${API_PORT}`}))
+iocContainer.bind<ApiClient>(TYPES.ApiClient).toConstantValue(new ApiClient({ baseUrl: `${API_HOST}:${API_PORT}` }))
 iocContainer.bind<TwitterService>(TYPES.TwitterService).to(TwitterService).inSingletonScope()
+iocContainer.bind<FileService>(TYPES.FileService).to(FileService).inSingletonScope()
+
+// Mappers
+iocContainer.bind<AnalyseRequestMapper>(TYPES.AnalyseRequestMapper).to(AnalyseRequestMapper)
 
 // Controllers
 iocContainer.bind<HomeController>(TYPES.HomeController).to(HomeController)
