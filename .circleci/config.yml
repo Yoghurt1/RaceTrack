@@ -1,0 +1,39 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7
+
+jobs:
+  build-frontend:
+    docker:
+      - image: cimg/node:16.14
+    resource_class: small
+    working_directory: ~/racetrack/frontend
+    steps:
+      - checkout:
+          path: ~/racetrack
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Lint
+          command: npm run lint
+      - run:
+          name: Run tests
+          command: npm run test-unit
+  build-api:
+    docker:
+      - image: cimg/python:3.10
+    resource_class: small
+    working_directory: ~/racetrack/api
+    steps:
+      - checkout:
+          path: ~/racetrack
+      - run:
+          name: Install dependencies
+          command: pip3 install -r requirements.txt
+
+workflows:
+  build:
+    jobs:
+      - build-frontend
+      - build-api

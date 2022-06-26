@@ -34,8 +34,6 @@ export class HomeController implements Controller {
     const twitterSearchQuery: string = events.length > 0 ? events[0].serviceClass : 'f1'
     const tweets: Tweet[] = await this.twitterService.getHomepageTimeline(twitterSearchQuery)
 
-    console.log(tweets[0].author)
-
     const viewModel: HomeViewModel = {
       events: events,
       apiRes: test,

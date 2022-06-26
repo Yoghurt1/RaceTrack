@@ -8,6 +8,7 @@
     "start-dev": "nodemon --watch ./dist --inspect=0.0.0.0:9229 --nolazy ./bin/www",
     "clean": "rimraf ./dist",
     "build": "npm run clean && npm rebuild node-sass && npm run generate-assets && tsc",
+    "lint": "npx eslint .",
     "generate-assets": "gulp generate-assets",
     "tsc-watch": "tsc -w -p .",
     "test-unit": "mocha 'tests/unit/**/*.ts' --require ts-node/register --file tests/unit/setup.ts --exit"
