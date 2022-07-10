@@ -3,7 +3,6 @@ import { assert } from 'chai'
 import { anyString, instance, mock, verify, when } from 'ts-mockito'
 import { HomeController } from '../../../src/controllers/homeController'
 import { TimingService } from '../../../src/services/timingService'
-import { ApiClient } from '../../../src/services/apiClient'
 import { request, setupController } from '../setup'
 import { generateServiceManifest } from '../../fixtures/timingFixtures'
 import { StatusCodes } from 'http-status-codes'
@@ -14,18 +13,15 @@ import { generateTweet } from '../../fixtures/twitterFixtures'
 describe('HomeController', () => {
 
   let timingService: TimingService
-  let apiClient: ApiClient
   let twitterService: TwitterService
 
   before(() => {
     timingService = mock(TimingService)
-    apiClient = mock(ApiClient)
     twitterService = mock(TwitterService)
-    
+
     setupController(
       new HomeController(
         instance(timingService),
-        instance(apiClient),
         instance(twitterService)
       )
     )
@@ -33,7 +29,6 @@ describe('HomeController', () => {
 
   describe('GET /', () => {
     beforeEach(() => {
-      when(apiClient.route()).thenResolve({ 'test': 'data' })
       when(timingService.getEvents()).thenReturn([generateServiceManifest()])
       when(twitterService.getHomepageTimeline(anyString())).thenResolve([generateTweet()])
     })
