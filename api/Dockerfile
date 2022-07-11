@@ -13,4 +13,4 @@ COPY . .
 EXPOSE 3001
 EXPOSE 9230
 
-CMD [ "python3", "./app.py"]
+CMD ["sh", "-c", "python3 ./src/app.py"]

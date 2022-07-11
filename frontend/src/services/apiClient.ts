@@ -1,6 +1,9 @@
+import 'reflect-metadata'
 import axios, { AxiosInstance, AxiosPromise, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { StatusCodes } from 'http-status-codes'
 import { injectable } from 'inversify'
+import { AnalyseRequest } from '../interfaces/api/analyseRequest'
+import { StopAnalysisRequest } from '../interfaces/api/stopAnalysisRequest'
 
 export interface ApiConfig {
   baseUrl: string
@@ -18,8 +21,12 @@ export class ApiClient {
     this.axios = axios.create(requestConfig)
   }
 
-  public async route(): Promise<any> {
-    return this.httpHandler<any>(() => this.axios.get('/route'))
+  public async analyseEvent(analyseRequest: AnalyseRequest): Promise<void> {
+    return this.httpHandler<void>(() => this.axios.post('/analyse', analyseRequest))
+  }
+
+  public async stopAnalysisEvent(stopAnalysisRequest: StopAnalysisRequest): Promise<void> {
+    return this.httpHandler<void>(() => this.axios.post('/stop-analysis', stopAnalysisRequest))
   }
 
   private async httpHandler<T>(request: () => AxiosPromise<T>): Promise<T> {

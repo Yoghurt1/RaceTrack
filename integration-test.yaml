@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./nginx/frontend.conf:/etc/nginx/nginx.conf
+      - data:/app-data/nginx/frontend.conf:/etc/nginx/nginx.conf
     depends_on:
       - frontend
   api.local:
@@ -16,7 +16,7 @@ services:
     ports:
       - "8081:80"
     volumes:
-      - ./nginx/api.conf:/etc/nginx/nginx.conf
+      - data:/app-data/nginx/api.conf:/etc/nginx/nginx.conf
     depends_on:
       - api
   frontend:
@@ -33,7 +33,7 @@ services:
     ports:
       - "9229:9229"
     volumes:
-      - ./frontend:/frontend
+      - data:/app-data/frontend:/frontend
       - timingdata:/data
   api:
     build:
@@ -47,7 +47,8 @@ services:
     ports:
       - "9230:9230"
     volumes:
-      - ./api:/api
+      - data:/app-data/api:/api
       - timingdata:/data
 volumes:
   timingdata:
+  data:

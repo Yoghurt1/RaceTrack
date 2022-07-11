@@ -31,6 +31,24 @@ jobs:
       - run:
           name: Install dependencies
           command: pip3 install -r requirements.txt
+      - run:
+          name: Lint
+          command: python3 -m black --check ./src/
+      - setup_remote_docker:
+          version: 20.10.14
+      - run:
+          name: Prepare integration test services
+          command: |
+            cd ..
+
+            docker create -v /app-data --name data alpine:3.4 /bin/true
+            docker cp . data:/app-data
+
+            docker-compose -f integration-test.yaml up --build --detach
+            sleep 15
+      - run:
+          name: Run integration tests
+          command: docker exec -it $(docker ps | grep frontend | awk '{print $1}') sh -c "npm run test-integration"
 
 workflows:
   build:
