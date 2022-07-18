@@ -30,7 +30,7 @@ describe('HomeController', () => {
   describe('GET /', () => {
     beforeEach(() => {
       when(timingService.getEvents()).thenReturn([generateServiceManifest()])
-      when(twitterService.getHomepageTimeline(anyString())).thenResolve([generateTweet()])
+      when(twitterService.getTimeline(anyString())).thenResolve([generateTweet()])
     })
 
     it('should return homepage', async () => {
@@ -61,7 +61,7 @@ describe('HomeController', () => {
         .get('/')
         .expect(StatusCodes.OK)
 
-      verify(twitterService.getHomepageTimeline('someservice')).called()
+      verify(twitterService.getTimeline('someservice')).called()
     })
 
     it('should return a Twitter timeline based on F1 if no events present', async () => {
@@ -71,7 +71,7 @@ describe('HomeController', () => {
         .get('/')
         .expect(StatusCodes.OK)
 
-      verify(twitterService.getHomepageTimeline('f1')).called()
+      verify(twitterService.getTimeline('f1')).called()
     })
   })
 })

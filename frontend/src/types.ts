@@ -13,7 +13,9 @@ export const TYPES = {
 
   // Mappers
   AnalyseRequestMapper: Symbol.for('AnalyseRequestMapper'),
+  ServiceMessageMapper: Symbol.for('ServiceMessageMapper'),
 
   // Controllers
-  HomeController: Symbol.for('HomeController')
+  HomeController: Symbol.for('HomeController'),
+  EventSentimentController: Symbol.for('EventSentimentController')
 }

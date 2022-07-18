@@ -8,7 +8,6 @@ export class FileService {
   }
 
   public async saveFile(path: string, data: Buffer): Promise<void> {
-    console.log(path)
     await fs.writeFile(path, data)
   }
 }

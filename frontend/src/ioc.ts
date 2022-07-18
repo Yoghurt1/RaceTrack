@@ -11,6 +11,8 @@ import { TwitterApi, TwitterApiReadOnly } from 'twitter-api-v2'
 import { TwitterService } from './services/twitterService'
 import { FileService } from './services/fileService'
 import { AnalyseRequestMapper } from './mappers/analyseRequestMapper'
+import { EventSentimentController } from './controllers/eventSentimentController'
+import { ServiceMessageMapper } from './mappers/serviceMessageMapper'
 
 const iocContainer = new Container()
 
@@ -33,8 +35,10 @@ iocContainer.bind<FileService>(TYPES.FileService).to(FileService).inSingletonSco
 
 // Mappers
 iocContainer.bind<AnalyseRequestMapper>(TYPES.AnalyseRequestMapper).to(AnalyseRequestMapper)
+iocContainer.bind<ServiceMessageMapper>(TYPES.ServiceMessageMapper).to(ServiceMessageMapper)
 
 // Controllers
 iocContainer.bind<HomeController>(TYPES.HomeController).to(HomeController)
+iocContainer.bind<EventSentimentController>(TYPES.EventSentimentController).to(EventSentimentController)
 
 export default iocContainer

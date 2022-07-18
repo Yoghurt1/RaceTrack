@@ -1,4 +1,5 @@
 import asyncio
+import json
 import nest_asyncio
 from werkzeug.datastructures import ImmutableMultiDict
 from concurrent.futures import ThreadPoolExecutor
@@ -6,6 +7,7 @@ from flask import Flask, request
 from validators.stopAnalysisRequest import StopAnalysisRequest
 from validators.analyseRequest import AnalyseRequest
 from lib.analyse import analyse, run
+from lib.messages import messages
 
 nest_asyncio.apply()
 
@@ -53,6 +55,15 @@ async def stopAnalysis():
         return (form.errors, 400)
 
     return ("", 200)
+
+
+@app.get("/messages/<uuid>")
+async def getMessages(uuid):
+    try:
+        return (json.dumps(messages(uuid)), 200)
+    except Exception as e:
+        app.logger.error(e)
+        return ("", 500)
 
 
 app.run(host="0.0.0.0", port=3001, debug=True)
