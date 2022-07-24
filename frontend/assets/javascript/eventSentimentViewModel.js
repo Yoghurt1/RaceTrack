@@ -1,7 +1,12 @@
+import { generateSentimentChart } from './charting/sentimentChart';
+
 const $ = require('jquery');
 const ko = require('knockout');
 
 export function EventSentimentViewModel() {
+  const chartData = config.eventSentimentViewModel.data || {}
+
+  generateSentimentChart(chartData);
   const INTERVAL = 5000;
   var currentReq = null;
   var timeout = null;

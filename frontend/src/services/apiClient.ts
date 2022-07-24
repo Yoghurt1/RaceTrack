@@ -4,6 +4,7 @@ import { StatusCodes } from 'http-status-codes'
 import { injectable } from 'inversify'
 import { AnalyseRequest } from '../interfaces/api/analyseRequest'
 import { StopAnalysisRequest } from '../interfaces/api/stopAnalysisRequest'
+import { SentimentResponse } from '../interfaces/api/sentimentResponse'
 
 export interface ApiConfig {
   baseUrl: string
@@ -31,6 +32,10 @@ export class ApiClient {
 
   public async getRecentMessages(uuid: string): Promise<(string | number)[][]> {
     return this.httpHandler<(string | number)[][]>(() => this.axios.get(`/messages/${uuid}`))
+  }
+
+  public async getSentiment(uuid: string): Promise<SentimentResponse[]> {
+    return this.httpHandler<SentimentResponse[]>(() => this.axios.get(`/sentiment/${uuid}`))
   }
 
   private async httpHandler<T>(request: () => AxiosPromise<T>): Promise<T> {

@@ -8,7 +8,7 @@ import { generateMessageFile, generateServiceMessageResponse } from '../fixtures
 describe('API - Messages tests', () => {
   describe('GET /messages/:uuid', () => {
     before(() => {
-      const testDir = `${DATA_DIR}/${TEST_UUID}`
+      const testDir = `${DATA_DIR}/${TEST_UUID}1`
 
       if (!fs.existsSync(testDir)) {
         fs.mkdirSync(testDir)
@@ -21,7 +21,7 @@ describe('API - Messages tests', () => {
       const fileContent = JSON.stringify(generateMessageFile(expectedResponse))
       insertEventFile(timestamp, fileContent)
 
-      const res = await client.getRecentMessages(TEST_UUID)
+      const res = await client.getRecentMessages(`${TEST_UUID}1`)
 
       assert.deepEqual(res, [expectedResponse])
 
@@ -33,9 +33,9 @@ describe('API - Messages tests', () => {
 })
 
 function insertEventFile(fileName: string, fileContent: string) {
-  fs.writeFileSync(`${DATA_DIR}/${TEST_UUID}/${fileName}.json`, Buffer.from(fileContent))
+  fs.writeFileSync(`${DATA_DIR}/${TEST_UUID}1/${fileName}.json`, Buffer.from(fileContent))
 }
 
 function deleteEventFile(fileName: string) {
-  fs.rmSync(`${DATA_DIR}/${TEST_UUID}/${fileName}.json`)
+  fs.rmSync(`${DATA_DIR}/${TEST_UUID}1/${fileName}.json`)
 }

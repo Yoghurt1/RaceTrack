@@ -10,20 +10,25 @@ import { generateServiceManifest, generateServiceMessage } from '../../fixtures/
 import { generateTweet } from '../../fixtures/twitterFixtures'
 import { StatusCodes } from 'http-status-codes'
 import { HtmlAssertHelper } from '../helpers'
+import { ApiClient } from '../../../src/services/apiClient'
+import { generateSentimentResponse } from '../../fixtures/apiFixtures'
 
 describe('EventSentimentController', () => {
 
   let timingService: TimingService
   let twitterService: TwitterService
+  let client: ApiClient
 
   before(() => {
     timingService = mock(TimingService)
     twitterService = mock(TwitterService)
+    client = mock(ApiClient)
 
     setupController(
       new EventSentimentController(
         instance(timingService),
-        instance(twitterService)
+        instance(twitterService),
+        instance(client)
       )
     )
   })
@@ -33,6 +38,7 @@ describe('EventSentimentController', () => {
       when(timingService.getEvent(TEST_UUID)).thenReturn(generateServiceManifest())
       when(twitterService.getTimeline(anyString())).thenResolve([generateTweet()])
       when(timingService.getRecentMessages(TEST_UUID)).thenResolve([generateServiceMessage()])
+      when(client.getSentiment(TEST_UUID)).thenResolve(generateSentimentResponse())
     })
 
     it('should return event sentiment page', async () => {
@@ -43,6 +49,7 @@ describe('EventSentimentController', () => {
       const htmlAssertHelper = new HtmlAssertHelper(res.text)
       assert.isTrue(htmlAssertHelper.containsTextValue('#messages', 'some message'))
       assert.isTrue(htmlAssertHelper.containsTextValue('#tweets', 'some tweet text'))
+      assert.isTrue(htmlAssertHelper.selectorExists('#sentimentChart'))
     })
   })
 })

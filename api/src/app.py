@@ -8,6 +8,7 @@ from validators.stopAnalysisRequest import StopAnalysisRequest
 from validators.analyseRequest import AnalyseRequest
 from lib.analyse import analyse, run
 from lib.messages import messages
+from lib.sentiment import sentiment
 
 nest_asyncio.apply()
 
@@ -61,6 +62,15 @@ async def stopAnalysis():
 async def getMessages(uuid):
     try:
         return (json.dumps(messages(uuid)), 200)
+    except Exception as e:
+        app.logger.error(e)
+        return ("", 500)
+
+
+@app.get("/sentiment/<uuid>")
+async def getSentiment(uuid):
+    try:
+        return (json.dumps(sentiment(uuid)), 200)
     except Exception as e:
         app.logger.error(e)
         return ("", 500)
