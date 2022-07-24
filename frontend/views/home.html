@@ -9,12 +9,14 @@
         <p>No events currently ongoing.</p>
       {% else %}
         {% for event in events %}
-          <div class="card bg-dark border-secondary">
-            <div class="card-body">
-              <h5 class="card-title">{{ event.name }}</h5>
-              <p class="card-text">{{ event.description }}</p>
+          <a href="/{{ event.uuid }}">
+            <div class="card bg-dark border-secondary">
+              <div class="card-body">
+                <h5 class="card-title">{{ event.name }}</h5>
+                <p class="card-text">{{ event.description }}</p>
+              </div>
             </div>
-          </div>
+          </a>
         {% endfor %}
       {% endif %}
     </div>

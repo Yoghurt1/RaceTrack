@@ -23,7 +23,10 @@
   "rules": {
     "indent": [
       "error",
-      2
+      2,
+      {
+        "SwitchCase": 1
+      }
     ],
     "linebreak-style": [
       "error",
@@ -42,20 +45,27 @@
   },
   "overrides": [
     {
-      "files": ["bin/*"],
+      "files": [
+        "bin/*"
+      ],
       "rules": {
         "no-undef": "off",
         "@typescript-eslint/no-var-requires": "off"
       }
     },
     {
-      "files": ["src/services/apiClient.ts", "tests/fixtures/twitterFixtures.ts"],
+      "files": [
+        "src/services/apiClient.ts",
+        "tests/fixtures/twitterFixtures.ts"
+      ],
       "rules": {
         "@typescript-eslint/no-explicit-any": "off"
       }
     },
     {
-      "files": ["*.js"],
+      "files": [
+        "*.js"
+      ],
       "rules": {
         "semi": "off",
         "@typescript-eslint/no-var-requires": "off"

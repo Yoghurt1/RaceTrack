@@ -67,3 +67,21 @@ export function generateMockSession(): sinon.SinonStubbedInstance<Session> {
 export function generateSessionProvider(session: Session): SessionProvider {
   return sinon.stub().resolves(session)
 }
+
+export function generateServiceMessageResponse(): (string | number)[] {
+  return [
+    1653828921,
+    'SP 9',
+    '#7 (Pepper) has left the pits',
+    'out',
+    '7'
+  ]
+}
+
+export function generateMessageFile(message) {
+  return {
+    messages: [
+      message
+    ]
+  }
+}

@@ -29,6 +29,10 @@ export class ApiClient {
     return this.httpHandler<void>(() => this.axios.post('/stop-analysis', stopAnalysisRequest))
   }
 
+  public async getRecentMessages(uuid: string): Promise<(string | number)[][]> {
+    return this.httpHandler<(string | number)[][]>(() => this.axios.get(`/messages/${uuid}`))
+  }
+
   private async httpHandler<T>(request: () => AxiosPromise<T>): Promise<T> {
     let data: T
 

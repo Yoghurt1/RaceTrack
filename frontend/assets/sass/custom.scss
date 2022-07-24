@@ -1,5 +1,5 @@
-$primary:    rgb(20, 108, 67);
-$secondary:  rgb(26, 161, 121);
+$primary: rgb(20, 108, 67);
+$secondary: rgb(26, 161, 121);
 
 @import "../../node_modules/bootstrap/scss/bootstrap";
 
@@ -16,4 +16,14 @@ $secondary:  rgb(26, 161, 121);
   @extend .navbar-brand;
   font-size: xx-large;
   font-style: italic;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.list-group-item {
+  @extend .list-group-item;
+  background-color: $primary;
+  color: white;
 }

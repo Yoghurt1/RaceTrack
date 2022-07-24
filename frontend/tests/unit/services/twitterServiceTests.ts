@@ -22,8 +22,8 @@ describe('TwitterService', () => {
   describe('getHomepageTimeline', () => {
     it('should fetch and map a list of recent tweets for the given query', async () => {
       const expectedTweet: Tweet = generateTweet()
-      
-      const res: Tweet[] = await twitterService.getHomepageTimeline('query')
+
+      const res: Tweet[] = await twitterService.getTimeline('query')
 
       assert.deepEqual(res[0].tweet, expectedTweet.tweet)
     })
