@@ -8,6 +8,7 @@
 
   <div class="row">
     <h3>Sentiment</h3>
+    <div id="sentimentChart">
   </div>
 
   <div class="row">
@@ -43,5 +44,12 @@
 
 {% block body_end %}
   {{ super() }}
+  <script>
+    var config = {
+      'eventSentimentViewModel': {
+        'data': {{ chartData | dump | safe }}
+      }
+    }
+  </script>
   <script src="{{ asset_path }}/javascripts/eventSentiment.js"></script>
 {% endblock %}
