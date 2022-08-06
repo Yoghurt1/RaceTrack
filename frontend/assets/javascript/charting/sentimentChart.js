@@ -41,8 +41,6 @@ export function generateSentimentChart(chartData) {
     })
   );
 
-  sentimentChart.set('stockSeries', valueSeries);
-
   valueSeries.data.processor = am5.DataProcessor.new(root, {
     numericFields: ['sentiment'],
     dateFields: ['time'],

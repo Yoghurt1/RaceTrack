@@ -5,6 +5,8 @@ import { injectable } from 'inversify'
 import { AnalyseRequest } from '../interfaces/api/analyseRequest'
 import { StopAnalysisRequest } from '../interfaces/api/stopAnalysisRequest'
 import { SentimentResponse } from '../interfaces/api/sentimentResponse'
+import { ChartResponse } from '../interfaces/api/chartResponse'
+import { ChartRequest } from '../interfaces/api/chartRequest'
 
 export interface ApiConfig {
   baseUrl: string
@@ -36,6 +38,18 @@ export class ApiClient {
 
   public async getSentiment(uuid: string): Promise<SentimentResponse[]> {
     return this.httpHandler<SentimentResponse[]>(() => this.axios.get(`/sentiment/${uuid}`))
+  }
+
+  public async getClasses(uuid: string): Promise<string[]> {
+    return this.httpHandler<string[]>(() => this.axios.get(`/classes/${uuid}`))
+  }
+
+  public async getCarNums(uuid: string): Promise<string[]> {
+    return this.httpHandler<string[]>(() => this.axios.get(`/car-numbers/${uuid}`))
+  }
+
+  public async getChartData(form: ChartRequest): Promise<ChartResponse[]> {
+    return this.httpHandler<ChartResponse[]>(() => this.axios.post('/chart', form))
   }
 
   private async httpHandler<T>(request: () => AxiosPromise<T>): Promise<T> {

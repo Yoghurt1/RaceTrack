@@ -6,7 +6,8 @@ function bundleFile(file) {
 
 module.exports = {
   entry: {
-    eventSentiment: bundleFile('/eventSentiment.js')
+    eventSentiment: bundleFile('/eventSentiment.js'),
+    eventVisualise: bundleFile('/eventVisualise.js')
   },
   output: {
     path: path.join(__dirname, '../../public/javascripts/'),

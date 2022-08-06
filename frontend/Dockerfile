@@ -8,9 +8,13 @@ WORKDIR /frontend
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install
-
 COPY . .
+
+RUN npm config set cache /tmp --global
+
+RUN chown -R 1000:1000 "/tmp"
+
+RUN npm install
 
 EXPOSE 3000
 EXPOSE 9229

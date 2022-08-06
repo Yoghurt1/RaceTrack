@@ -6,7 +6,8 @@ import { TYPES } from './types'
 export function attachRoutes(app: express.Application): void {
   const controllers: Controller[] = [
     getController(TYPES.HomeController),
-    getController(TYPES.EventSentimentController)
+    getController(TYPES.EventSentimentController),
+    getController(TYPES.EventVisualisationController)
   ]
 
   const router = express.Router()

@@ -4,6 +4,7 @@ const $ = require('jquery');
 const ko = require('knockout');
 
 export function EventSentimentViewModel() {
+  var self = this
   const chartData = config.eventSentimentViewModel.data || {}
 
   generateSentimentChart(chartData);
@@ -11,7 +12,7 @@ export function EventSentimentViewModel() {
   var currentReq = null;
   var timeout = null;
 
-  this.messages = ko.observableArray([]);
+  self.messages = ko.observableArray([]);
 
   const fetchMessages = function () {
     currentReq = $.get({

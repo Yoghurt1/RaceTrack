@@ -1,14 +1,17 @@
 import asyncio
 import json
 import nest_asyncio
+import traceback
 from werkzeug.datastructures import ImmutableMultiDict
 from concurrent.futures import ThreadPoolExecutor
-from flask import Flask, request
+from flask import Flask, jsonify, request
+from validators.chartDataRequest import ChartDataRequest
 from validators.stopAnalysisRequest import StopAnalysisRequest
 from validators.analyseRequest import AnalyseRequest
 from lib.analyse import analyse, run
 from lib.messages import messages
 from lib.sentiment import sentiment
+from lib.chartData import generateChartData, getEventData
 
 nest_asyncio.apply()
 
@@ -74,6 +77,39 @@ async def getSentiment(uuid):
     except Exception as e:
         app.logger.error(e)
         return ("", 500)
+
+
+@app.get("/classes/<uuid>")
+async def getClasses(uuid):
+    try:
+        return (jsonify(sorted(getEventData(uuid, "Class", True, str))), 200)
+    except Exception as e:
+        app.logger.error(e)
+        return ("", 500)
+
+
+@app.get("/car-numbers/<uuid>")
+async def getCarNums(uuid):
+    try:
+        return (jsonify(sorted(getEventData(uuid, "Num", True, str))), 200)
+    except Exception as e:
+        app.logger.error(e)
+        return ("", 500)
+
+
+@app.post("/chart")
+async def getChartData():
+    form = ChartDataRequest(ImmutableMultiDict(request.json))
+
+    if form.validate():
+        try:
+            return (jsonify(generateChartData(form)), 200)
+        except Exception as e:
+            app.logger.error(e)
+            app.logger.error(traceback.format_exc())
+            return ("", 500)
+    else:
+        return (form.errors, 400)
 
 
 app.run(host="0.0.0.0", port=3001, debug=True)

@@ -1,0 +1,135 @@
+{% extends "includes/layout.html" %}
+
+{% block content %}
+
+  <div class="row">
+    {% set page = "visualise" %}
+    {% include "includes/event-nav.html" %}
+  </div>
+
+  <div class="row">
+    <div class="col-4">
+      <h2>Controls</h2>
+      <hr>
+      <form id="chartForm" action="javascript:void(0);">
+        <div class="row">
+          <div class="col-sm">
+            <select class="form-select" name="chartType" aria-label="Chart type">
+              <option disabled {{ "selected" if not form.chartType }}>Chart type</option>
+              <option value="{{ ChartType.line }}" {{ "selected" if form.chartType === ChartType.line }}>Line</option>
+              <option value="{{ ChartType.line_smooth }}" {{ "selected" if form.chartType === ChartType.line_smooth }}>Line (smoothed)</option>
+              <option value="{{ ChartType.step_line }}" {{ "selected" if form.chartType === ChartType.step_line }}>Step line</option>
+              <option value="{{ ChartType.column }}" {{ "selected" if form.chartType === ChartType.column }}>Column</option>
+              <option value="{{ ChartType.box }}" {{ "selected" if form.chartType === ChartType.box }}>Box plot</option>
+            </select>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-sm">
+            <select class="form-select" name="xAxis" aria-label="X axis" data-bind="value: xAxis">
+              <option disabled {{ "selected" if not form.xAxis }}>X axis</option>
+              {% for col in colSpec %}
+                {% if col.dtype == "text" or col.dtype == "numeric" %}
+                  <option value="{{ col.name }}" {{ "selected" if form.xAxis == col.name }}>{{ col.description if col.description else col.name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="col-sm">
+            <select class="form-select" name="yAxis" aria-label="Y axis" data-bind="value: yAxis">
+              <option disabled {{ "selected" if not form.yAxis }}>Y axis</option>
+              {% for col in colSpec %}
+                {% if col.dtype == "time" or col.dtype == "delta" %}
+                  <option value="{{ col.name }}" {{ "selected" if form.yAxis == col.name }}>{{ col.description if col.description else col.name }}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-6">
+            <select class="form-select" name="xFunction" aria-label="X axis function" data-bind="options: xFunctions">
+              <option disabled {{ "selected" if not form.xFunction }}>Function</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <select class="form-select" name="yFunction" aria-label="Y axis function" data-bind="options: yFunctions">
+              <option disabled {{ "selected" if not form.yFunction }}>Function</option>
+            </select>
+          </div>
+        </div>
+
+        <br>
+        <h3>Compare</h3>
+        <hr>
+
+        <div class="row">
+          <div class="d-flex">
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="compareOption" id="compareClassRadio" value="class" data-bind="click: showCompareClass">
+              <label class="form-check-label" for="compareClassRadio">Class</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="compareOption" id="compareCarsRadio" value="car" data-bind="click: showCompareCars">
+              <label class="form-check-label" for="compareCarsRadio">Cars</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="compareOption" id="compareNoneRadio" value="none" data-bind="click: showCompareNone">
+              <label class="form-check-label" for="compareNoneRadio">None</label>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row" data-bind="visible: shouldShowCompareCars">
+          <div class="col-sm">
+            <select class="form-select" name="carCompare1" aria-label="Car to compare 1" data-bind="options: carNums, optionsText: formatCarNums"></select>
+          </div>
+
+          <div class="col-sm">
+            <select class="form-select" name="carCompare2" aria-label="Car to compare 2" data-bind="options: carNums, optionsText: formatCarNums"></select>
+          </div>
+        </div>
+
+        <div class="row" data-bind="visible: shouldShowCompareClass">
+          <div class="col-sm">
+            <select class="form-select" name="classCompare" aria-label="Class to compare" data-bind="options: classes"></select>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row container-fluid">
+          <button type="submit" id="generate" class="btn btn-primary" data-bind="click: generateChart">Generate</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-8">
+      <h2>Chart</h2>
+      <div id="customChart"></div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block body_end %}
+  {{ super() }}
+  <script>
+    var config = {
+      'eventVisualiseViewModel': {
+        'colSpec': {{ colSpec | dump | safe }}
+      }
+    }
+  </script>
+  <script src="{{ asset_path }}/javascripts/eventVisualise.js"></script>
+{% endblock %}
