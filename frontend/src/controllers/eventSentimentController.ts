@@ -15,6 +15,7 @@ interface EventSentimentViewModel {
   tweets: Tweet[]
   messages: ServiceMessage[]
   chartData: SentimentResponse[]
+  uuid: string
 }
 
 @injectable()
@@ -41,7 +42,8 @@ export class EventSentimentController implements Controller {
       const viewModel: EventSentimentViewModel = {
         tweets: tweets,
         messages: messages,
-        chartData: chartData
+        chartData: chartData,
+        uuid: uuid
       }
 
       return res.render('event-sentiment.html', viewModel)

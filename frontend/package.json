@@ -12,7 +12,7 @@
     "generate-assets": "gulp generate-assets",
     "tsc-watch": "tsc -w -p .",
     "test-unit": "mocha 'tests/unit/**/*.ts' --require ts-node/register --file tests/unit/setup.ts --exit",
-    "test-integration": "mocha 'tests/integration/**/*.ts' --require ts-node/register --file tests/integration/setup.ts --exit",
+    "test-integration": "mocha --timeout 20000 'tests/integration/**/*.ts' --require ts-node/register --file tests/integration/setup.ts --exit",
     "build-client-side": "webpack --config ./assets/javascript/webpack.config.js --mode development"
   },
   "repository": {
@@ -30,6 +30,7 @@
     "@types/autobahn": "^20.9.0",
     "autobahn": "^20.9.2",
     "axios": "^0.26.1",
+    "body-parser": "^1.20.0",
     "express": "^4.18.1",
     "http-status-codes": "^2.2.0",
     "inversify": "^6.0.1",

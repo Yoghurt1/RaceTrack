@@ -14,8 +14,11 @@ export const TYPES = {
   // Mappers
   AnalyseRequestMapper: Symbol.for('AnalyseRequestMapper'),
   ServiceMessageMapper: Symbol.for('ServiceMessageMapper'),
+  ColSpecMapper: Symbol.for('ColSpecMapper'),
+  ChartRequestMapper: Symbol.for('ChartRequestMapper'),
 
   // Controllers
   HomeController: Symbol.for('HomeController'),
-  EventSentimentController: Symbol.for('EventSentimentController')
+  EventSentimentController: Symbol.for('EventSentimentController'),
+  EventVisualisationController: Symbol.for('EventVisualisationController')
 }

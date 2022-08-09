@@ -13,6 +13,9 @@ import { FileService } from './services/fileService'
 import { AnalyseRequestMapper } from './mappers/analyseRequestMapper'
 import { EventSentimentController } from './controllers/eventSentimentController'
 import { ServiceMessageMapper } from './mappers/serviceMessageMapper'
+import { EventVisualisationController } from './controllers/eventVisualisationController'
+import { ColSpecMapper } from './mappers/colSpecMapper'
+import { ChartRequestMapper } from './mappers/chartRequestMapper'
 
 const iocContainer = new Container()
 
@@ -36,9 +39,12 @@ iocContainer.bind<FileService>(TYPES.FileService).to(FileService).inSingletonSco
 // Mappers
 iocContainer.bind<AnalyseRequestMapper>(TYPES.AnalyseRequestMapper).to(AnalyseRequestMapper)
 iocContainer.bind<ServiceMessageMapper>(TYPES.ServiceMessageMapper).to(ServiceMessageMapper)
+iocContainer.bind<ColSpecMapper>(TYPES.ColSpecMapper).to(ColSpecMapper)
+iocContainer.bind<ChartRequestMapper>(TYPES.ChartRequestMapper).to(ChartRequestMapper)
 
 // Controllers
 iocContainer.bind<HomeController>(TYPES.HomeController).to(HomeController)
 iocContainer.bind<EventSentimentController>(TYPES.EventSentimentController).to(EventSentimentController)
+iocContainer.bind<EventVisualisationController>(TYPES.EventVisualisationController).to(EventVisualisationController)
 
 export default iocContainer

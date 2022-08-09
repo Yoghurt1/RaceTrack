@@ -33,7 +33,7 @@ describe('EventSentimentController', () => {
     )
   })
 
-  describe('GET /', () => {
+  describe('GET /{uuid}', () => {
     beforeEach(() => {
       when(timingService.getEvent(TEST_UUID)).thenReturn(generateServiceManifest())
       when(twitterService.getTimeline(anyString())).thenResolve([generateTweet()])

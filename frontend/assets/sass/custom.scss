@@ -28,8 +28,9 @@ $secondary: rgb(26, 161, 121);
   color: white;
 }
 
-#sentimentChart {
+#sentimentChart,
+#customChart {
   width: 100%;
-  height: 250px;
+  height: 500px;
   margin-bottom: 10px;
 }

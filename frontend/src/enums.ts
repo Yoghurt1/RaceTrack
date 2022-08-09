@@ -26,3 +26,19 @@ export enum FlagStatus {
   WHITE = 2,
   YELLOW = 4
 }
+
+export enum ChartFunction {
+  average = 'Average',
+  rolling_average = 'Rolling average',
+  max = 'Max',
+  median = 'Median',
+  min = 'Min'
+}
+
+export enum ChartType {
+  line = 'Line',
+  line_smooth = 'Line (smoothed)',
+  step_line = 'Step line',
+  column = 'Column',
+  box = 'Box plot'
+}
