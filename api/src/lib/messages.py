@@ -6,15 +6,15 @@ import time
 def messages(uuid):
     eventDir = "{data}/{uuid}/".format(data=os.environ["DATA_DIR"], uuid=uuid)
 
-    #### Testing purposes
-    # startTime = 0
-    # with open(eventDir + "manifest.json", "r") as file:
-    #     manifest = json.loads(file.readlines()[0])
-    #     startTime = manifest["startTime"]
-    # earliestTimestamp = startTime + (24 * 3600) - 3600
+    ### Testing purposes
+    startTime = 0
+    with open(eventDir + "manifest.json", "r") as file:
+        manifest = json.loads(file.readlines()[0])
+        startTime = manifest["startTime"]
+    earliestTimestamp = startTime + (24 * 3600) - 3600
 
-    currentTimestamp = time.time()
-    earliestTimestamp = currentTimestamp - 600
+    # currentTimestamp = time.time()
+    # earliestTimestamp = currentTimestamp - 600
 
     response = []
 

@@ -27,7 +27,7 @@ export class HomeController implements Controller {
   private async get(req: Request, res: Response) {
     const events: ServiceManifest[] = this.timingService.getEvents()
 
-    const twitterSearchQuery: string = events.length > 0 ? events[0].serviceClass : 'f1'
+    const twitterSearchQuery = 'f1'
     const tweets: Tweet[] = await this.twitterService.getTimeline(twitterSearchQuery)
 
     const viewModel: HomeViewModel = {

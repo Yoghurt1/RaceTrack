@@ -27,12 +27,16 @@ export function generateCustomChart(colSpec, chartData, chartInfo) {
     if (!chartInfo.carCompare1 && !chartInfo.carCompare2 && !chartInfo.classCompare) {
       xAxis.data.setAll(chartData)
     } else {
-      const xData = Object.keys(chartData).map(key => {
-        return {
-          'x': key
-        }
+      const xData = Object.values(chartData).map(value => {
+        return value.map((point) => {
+          console.log(point)
+          return {
+            'x': point['x']
+          }
+        })
       })
-      xAxis.data.setAll(xData)
+      console.log(xData)
+      xAxis.data.setAll(xData.flat())
     }
 
     xAxis.get('renderer').labels.template.setAll({
@@ -44,10 +48,13 @@ export function generateCustomChart(colSpec, chartData, chartInfo) {
     if (!chartInfo.carCompare1 && !chartInfo.carCompare2 && !chartInfo.classCompare) {
       yAxis.data.setAll(chartData)
     } else {
-      const yData = Object.keys(chartData).map(key => {
-        return {
-          'y': key
-        }
+      const yData = Object.values(chartData).map(value => {
+        return value.map((point) => {
+          console.log(point)
+          return {
+            'y': point['y']
+          }
+        })
       })
       yAxis.data.setAll(yData)
     }
@@ -70,13 +77,32 @@ export function generateCustomChart(colSpec, chartData, chartInfo) {
 
   if (!chartInfo.carCompare1 && !chartInfo.carCompare2 && !chartInfo.classCompare) {
     const settings = generateSeriesSettings(root, xType, yType, xAxis, yAxis, chartInfo)
+    let series;
 
     switch (chartInfo.chartType) {
       case 'Line':
-        chart.series.push(generateSeries(am5xy.LineSeries, chartData, root, settings, xType, yType))
+        series = generateSeries(am5xy.LineSeries, chartData, root, settings, xType, yType)
+        series.bullets.push(function (root) {
+          return am5.Bullet.new(root, {
+            sprite: am5.Circle.new(root, {
+              radius: 4,
+              fill: series.get('fill')
+            })
+          });
+        });
+        chart.series.push(series)
         break;
       case 'Line (smoothed)':
-        chart.series.push(generateSeries(am5xy.SmoothedXLineSeries, chartData, root, settings, xType, yType))
+        series = generateSeries(am5xy.SmoothedXLineSeries, chartData, root, settings, xType, yType)
+        series.bullets.push(function (root) {
+          return am5.Bullet.new(root, {
+            sprite: am5.Circle.new(root, {
+              radius: 4,
+              fill: series.get('fill')
+            })
+          });
+        });
+        chart.series.push()
         break;
       case 'Step line':
         chart.series.push(generateSeries(am5xy.StepLineSeries, chartData, root, settings, xType, yType))
@@ -113,8 +139,22 @@ export function generateCustomChart(colSpec, chartData, chartInfo) {
     }
 
     for (const [key, value] of Object.entries(chartData)) {
+      console.log(value)
       const settings = generateSeriesSettings(root, xType, yType, xAxis, yAxis, chartInfo, key)
-      series.push(generateSeries(chartType, value, root, settings, xType, yType))
+      const tempSeries = generateSeries(chartType, value, root, settings, xType, yType)
+
+      if (chartType === am5xy.LineSeries || chartType === am5xy.SmoothedXLineSeries) {
+        tempSeries.bullets.push(function (root) {
+          return am5.Bullet.new(root, {
+            sprite: am5.Circle.new(root, {
+              radius: 4,
+              fill: tempSeries.get('fill')
+            })
+          });
+        });
+      }
+
+      series.push(tempSeries)
     }
 
     chart.series.setAll(series)

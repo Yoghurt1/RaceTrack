@@ -5,7 +5,7 @@ import { NextFunction, Request, Response, Router } from 'express'
 import { TYPES } from '../types'
 import { TimingService } from '../services/timingService'
 import { TwitterService } from '../services/twitterService'
-import { ServiceManifest } from '../interfaces/serviceManifest'
+// import { ServiceManifest } from '../interfaces/serviceManifest'
 import { Tweet } from '../interfaces/tweet'
 import { ServiceMessage } from '../interfaces/serviceMessage'
 import { ApiClient } from '../services/apiClient'
@@ -34,8 +34,8 @@ export class EventSentimentController implements Controller {
     try {
       const uuid: string = req.params.eventUuid
 
-      const manifest: ServiceManifest = this.timingService.getEvent(uuid)
-      const tweets: Tweet[] = await this.twitterService.getTimeline(manifest.serviceClass)
+      // const manifest: ServiceManifest = this.timingService.getEvent(uuid)
+      const tweets: Tweet[] = await this.twitterService.getTimeline('f1')
       const messages: ServiceMessage[] = await this.getMessages(uuid)
       const chartData: SentimentResponse[] = await this.client.getSentiment(uuid)
 
